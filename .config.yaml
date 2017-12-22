@@ -1,0 +1,71 @@
+##############################################################################
+# PROJECT 1 - AGE PREDICTION
+##############################################################################
+# STEP 1 - FIT X_TRAIN
+#module: ml_project.model_selection
+#class: GridSearchCV
+#params:
+#  est_module: ml_project.pipeline
+#  est_class: Pipeline
+#  est_params:
+#    - module: ml_project.models.preprocessing
+#      class: BordersCropping
+#    - module: ml_project.models.feature_extraction
+#      class: HistogramsExtractor
+#    - module: sklearn.linear_model
+#      class: RidgeCV
+#  param_grid:
+#    HistogramsExtractor__partition_size:
+#      - 8
+#      - 9
+#  cv:
+#    module: sklearn.model_selection
+#    class: KFold
+#    params:
+#      n_splits: 3
+#      shuffle: True
+#      random_state: 37
+
+# STEP 2 - PREDICT X_TEST
+#module: sklearn.linear_model
+#class: RidgeCV
+
+
+##############################################################################
+# PROJECT 2 - DEMENTIA CLASSIFICATION
+##############################################################################
+# STEP 1 - FIT X_TRAIN
+#module: ml_project.pipeline
+#class: Pipeline
+#params:
+#  class_list:
+#    - module: ml_project.models.preprocessing
+#      class: Normalization
+#    - module: ml_project.models.feature_selection
+#      class: RegionsOfInterest
+#    - module: ml_project.models.classification
+#      class: VoteClassifier
+
+# STEP 2 - PREDICT X_TEST
+#module: ml_project.models.classification
+#class: VoteClassifier
+
+
+##############################################################################
+# PROJECT 3 - ECG CLASSIFICATION
+##############################################################################
+# STEP 1 - FIT X_TRAIN
+#smt run --config .config.yaml -X data/train_data.npy -y data/train_labels.csv -a fit
+#module: ml_project.pipeline
+#class: Pipeline
+#params:
+#  class_list:
+#    - module: ml_project.models.feature_extraction
+#      class: HeartBeatDWTExtractor
+#    - module: ml_project.models.classification
+#      class: RandomForest
+
+# STEP 2 - PREDICT X_TEST
+#smt run --model data/20171217-165334/Pipeline.pkl -X data/test_data.npy -a predict
+module: ml_project.models.classification
+class: RandomForest
